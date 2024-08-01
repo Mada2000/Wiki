@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ name }}</h1>
 
-    <h1>content</h1>
-    <p>{{ entry }}</p>
+    {{ entry|safe }}
+    
     <form action="{% url 'edit' %}" method="post">
         {% csrf_token %}
         <input hidden value={{ name }} name="title">

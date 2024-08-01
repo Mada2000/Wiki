@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import redirect
 import random
 from . import util
+from markdown2 import Markdown
 
 def index(request):
     # Check if method is POST
@@ -88,8 +89,10 @@ def unkown(request, name):
 
             # redirect user to the page if found
             if name.lower() == entry.lower():
-                return render(request, f"encyclopedia/content.html", {
-                    "name":entry , "entry":util.get_entry(entry)
+                markdowner = Markdown()
+                unmarked = markdowner.convert(util.get_entry(entry))
+                return render(request, "encyclopedia/content.html", {
+                    "name":entry , "entry":unmarked
                 })
 
         
