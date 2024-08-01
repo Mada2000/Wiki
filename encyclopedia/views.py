@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 from django.shortcuts import redirect
-
-
-
+import random
 from . import util
 
 def index(request):
@@ -77,7 +75,7 @@ def unkown(request, name):
         content = request.POST.get('content')
         if not content or not title:
             return render(request, "encyclopedia/404.html", {
-                "error": "please put content."
+                "error": "Please put content."
             })
         else:
             util.save_entry(title, content)
@@ -110,3 +108,12 @@ def edit(request):
         return render(request, "encyclopedia/index.html", {
             "entries": util.list_entries()
         })
+    
+def random_page(request):
+    entries = []
+    for entry in util.list_entries():
+        entries.append(entry)
+    random_title = random.choice(entries)
+    return render(request, f"encyclopedia/content.html", {
+        "name":random_title , "entry":util.get_entry(random_title)
+    })
