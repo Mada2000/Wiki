@@ -110,9 +110,12 @@ def edit(request):
         })
     
 def random_page(request):
+    #create empty list for the entries and append them
     entries = []
     for entry in util.list_entries():
         entries.append(entry)
+
+    #get random title from list and view it
     random_title = random.choice(entries)
     return render(request, f"encyclopedia/content.html", {
         "name":random_title , "entry":util.get_entry(random_title)
