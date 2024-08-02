@@ -37,17 +37,18 @@ def index(request):
     
 def search(request):
     entries = []
+    markdowner = Markdown()
     if request.GET['q']:
         query = request.GET['q']
 
         #iterate over all the entries
         for entry in util.list_entries():
-
             # check if the query is found
             # redirect user to the page if found
             if query.lower() == entry.lower():
+                unmarked = markdowner.convert(util.get_entry(entry))
                 return render(request, f"encyclopedia/content.html", {
-                    "name":entry , "entry":util.get_entry(entry)
+                    "name":entry , "entry":unmarked
                 })
             
             # add to the list the titles that has the query in it

@@ -6,12 +6,14 @@
 
 {% block body %}
     <h1>Edit Content</h1>
-    <h1>{{ title }}</h1>
-    <form action={{ title }} method="post">
+    <br>
+    <h2>{{ title }}</h2>
+    <br>
+    <form action=/wiki/{{ title }} method="post">
         {% csrf_token %}
 
         <input value={{ title }} hidden type="text" name="title">
-        <p><label>Content</label></p>
+        <h5><label>Content:</label></h5>
         <textarea name="content"></textarea>
         <br>
         <input type="submit" value="Submit">

@@ -6,12 +6,13 @@
 
 {% block body %}
     <h1>New page</h1>
+    <br>
 
     <form action="{% url 'index' %}" method="post">
         {% csrf_token %}
-        <p><label>Title:</label></p>
+        <h5><label>Title:</label></h5>
         <input type="text" name="title">
-        <p><label>Content</label></p>
+        <h5><label>Content:</label></h5>
         <textarea name="content"></textarea>
         <br>
         <input type="submit" value="Submit">
