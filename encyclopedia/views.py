@@ -79,9 +79,11 @@ def unkown(request, name):
                 "error": "Please put content."
             })
         else:
-            util.save_entry(title, content)
+            util.save_entry(title,content)
+            markdowner = Markdown()
+            unmarked = markdowner.convert(util.get_entry(title))
             return render(request, "encyclopedia/content.html", {
-                "name":title , "entry":util.get_entry(title)
+                "name":title , "entry":unmarked
             })
     else:
         #if the route is there redirect user to the page content
@@ -120,6 +122,8 @@ def random_page(request):
 
     #get random title from list and view it
     random_title = random.choice(entries)
+    markdowner = Markdown()
+    unmarked = markdowner.convert(util.get_entry(random_title))
     return render(request, f"encyclopedia/content.html", {
-        "name":random_title , "entry":util.get_entry(random_title)
+        "name":random_title , "entry":unmarked
     })
