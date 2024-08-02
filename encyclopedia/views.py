@@ -26,9 +26,12 @@ def index(request):
         #if title name isn't existing before
         else:
             util.save_entry(title, content)
-            return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries()
-            })
+            markdowner = Markdown()
+            unmarked = markdowner.convert(util.get_entry(title))
+            return render(request, f"encyclopedia/content.html", {
+                    "name":title , "entry":unmarked
+                })
+        
     # if no form is submitted
     else:
         return render(request, "encyclopedia/index.html", {
